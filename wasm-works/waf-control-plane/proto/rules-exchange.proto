@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "io.grpc/proxy-wasm/rules-exchange";
+option java_multiple_files = true;
+option java_package = "io.grpc.proxy.wasm.rules.exchange";
+option java_outer_classname = "RulesExchange";
+
+package rules_exchange;
+
+service RulesExchange {
+  rpc getRule (RequestWrapper) returns (RuleWrapper) {}
+}
+/***
+ since there are complication we will use `bincode` to encode and pass to grpc and decode there.
+**/
+
+message RequestWrapper {
+  bytes byteVector = 1;
+}
+
+message RuleWrapper {
+  bytes byteVector = 1;
+}
+

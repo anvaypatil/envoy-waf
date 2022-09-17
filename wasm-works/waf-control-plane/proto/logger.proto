@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "io.grpc/proxy-wasm/logger";
+option java_multiple_files = true;
+option java_package = "io.grpc.proxy.wasm.logger";
+option java_outer_classname = "LoggerProto";
+
+package logger;
+
+service Logger {
+  rpc log (BinaryWrapper) returns (LogAck) {}
+}
+/***
+#[derive(Encode, Decode, PartialEq, Debug)]
+struct HttpCall {
+    request_header: Option<Vec<(String, String)>>,
+    request_body: Option<Bytes>,
+    response_header: Option<Vec<(String, String)>>,
+    response_body: Option<Bytes>,
+}
+ since there are complication we will use `bincode` to encode and pass to grpc and decode there.
+**/
+
+message BinaryWrapper {
+  bytes byteVector = 1;
+}
+
+message LogAck {
+  bool ack = 1;
+}
+

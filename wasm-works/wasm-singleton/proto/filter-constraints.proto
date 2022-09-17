@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "io.grpc/proxy-wasm/filter-constraints";
+option java_multiple_files = true;
+option java_package = "io.grpc.proxy.wasm.filter.constraints";
+option java_outer_classname = "FilterConstraints";
+
+package filter_constraints;
+
+service FilterConstraints {
+  rpc getConstraints (RequestWrapper) returns (Constraints) {}
+}
+/***
+ since there are complication we will use `bincode` to encode and pass to grpc and decode there.
+**/
+
+message RequestWrapper {
+  bytes byteVector = 1;
+}
+
+message Constraints {
+  bytes byteVector = 1;
+}
+
